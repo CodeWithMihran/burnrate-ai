@@ -17,3 +17,26 @@ Not exactly stuck but I’m still not fully clear on how to design the audit log
 
 **Plan for tomorrow:**
 Start working on audit engine logic. First I will define pricing data for tools like ChatGPT and Claude and then try to build basic rules for recommendation and savings calculation. Also will start setting up express server and routes.
+
+----------------------------------------------------------------------------------------------------------------------------------
+
+## Day 2 — 2026-05-07
+
+**Hours worked: 6**
+
+**What I did:**
+Today I mostly focused on building the actual backend structure and then started frontend development for BurnRate.ai. First I completed all major backend parts like controllers, routes and audit engine improvements. I created audit, lead and summary controllers and connected them properly with routes. Also shifted the server structure into a cleaner src based architecture because earlier things were getting messy.
+
+After backend structure looked stable, I started frontend setup using React + TypeScript + Tailwind. I created the shared layout first including Navbar, Footer, App routes and global styles. Then I designed the Home page with a premium landing page style UI and gradients/glassmorphism effects.
+
+After that I worked on the Audit page which took a lot more time than expected because I wanted the form flow and UX to feel smooth instead of just making a basic form. Added dynamic tool inputs, loading state and proper layout for audit generation.
+Then I also completed the SharedResult page design with savings hero section, recommendations cards, AI summary section and metrics cards. Finally I started frontend-backend integration by creating service files for API calls and updating the pages to use real backend data instead of static mock data.
+
+**What I learned:**
+Today I learned how important frontend flow and UX actually is in product based projects. Even small things like spacing, loading states and route flow makes the app feel much more real. Also understood better how to separate API logic into service files instead of directly calling backend inside components.
+
+**Blockers / what I'm stuck on:**
+Frontend and backend integration still feels slightly confusing in some places, especially matching backend response structure with frontend state properly. Also need to carefully test routes and data flow because one small mismatch breaks the whole flow.
+
+**Plan for tomorrow:**
+Finish full integration testing between frontend and backend. Add proper error handling, toast notifications and maybe email gate flow if time allows. Also want to clean small UI issues and start preparing documentation files properly.
