@@ -1,0 +1,41 @@
+{
+  "audits": [
+    {
+      "_id": "w5y7KtDN_8z-",
+      "tools": [
+        {
+          "toolName": "ChatGPT",
+          "plan": "Free",
+          "monthlySpend": 0,
+          "seats": 4
+        }
+      ],
+      "teamSize": 4,
+      "useCase": "coding",
+      "result": {
+        "totalCurrentSpend": 0,
+        "totalOptimizedSpend": 0,
+        "totalMonthlySavings": 0,
+        "totalAnnualSavings": 0,
+        "recommendations": [
+          {
+            "toolName": "ChatGPT",
+            "currentPlan": "Free",
+            "recommendedPlan": "Free",
+            "currentSpend": 0,
+            "optimizedSpend": 0,
+            "savings": 0,
+            "action": "stay",
+            "reason": "Your current Free plan already looks reasonably aligned to the number of seats and the stated use case."
+          }
+        ],
+        "summary": "Your current AI tool setup appears cost-efficient for a coding workflow. Savings opportunities are limited right now, so the best move is to keep the stack as-is and revisit pricing changes later."
+      },
+      "publicId": "sgZfOiUjWq",
+      "isPublic": true,
+      "createdAt": "2026-05-08T13:49:06.289Z",
+      "updatedAt": "2026-05-08T13:49:06.289Z"
+    }
+  ],
+  "leads": []
+}

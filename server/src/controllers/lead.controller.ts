@@ -1,8 +1,15 @@
 import { Request, Response } from "express";
 import Lead from "../models/Lead";
 import Audit from "../models/Audit";
-import { sendAuditEmail } from "../services/audit/email.service";
+import { sendAuditEmail } from "../services/email.service";
 import { leadInputSchema } from "../validators/lead.validator";
+import { isDatabaseConnected } from "../config/db";
+import {
+  createMemoryLead,
+  findMemoryLead,
+  getMemoryAuditById,
+  markMemoryLeadAsEmailed,
+} from "../services/memoryStore";
 
 /**
  * ----------------------------------
@@ -23,10 +30,21 @@ export const createLead = async (req: Request, res: Response) => {
       });
     }
 
-    const { email, companyName, role, teamSize, auditId } = parsed.data;
+    const {
+      email,
+      companyName,
+      role,
+      teamSize,
+      auditId,
+      intent = "report",
+      consultationNotes,
+      preferredContactWindow,
+    } = parsed.data;
 
     // 2. Fetch audit (DO NOT trust frontend savings)
-    const audit = await Audit.findById(auditId);
+    const audit = isDatabaseConnected()
+      ? await Audit.findById(auditId)
+      : getMemoryAuditById(auditId);
 
     if (!audit) {
       return res.status(404).json({
@@ -39,7 +57,9 @@ export const createLead = async (req: Request, res: Response) => {
     const annualSavings = audit.result.totalAnnualSavings;
 
     // 3. Check duplicate lead
-    const existingLead = await Lead.findOne({ email, auditId });
+    const existingLead = isDatabaseConnected()
+      ? await Lead.findOne({ email, auditId })
+      : findMemoryLead(email, auditId);
 
     if (existingLead) {
       return res.status(200).json({
@@ -50,18 +70,37 @@ export const createLead = async (req: Request, res: Response) => {
     }
 
     // 4. Create lead
-    const lead = await Lead.create({
-      email,
-      companyName,
-      role,
-      teamSize,
-      auditId,
-      estimatedMonthlySavings: monthlySavings,
-      estimatedAnnualSavings: annualSavings,
-      source: req.headers.referer || "direct",
-      ipAddress: req.ip,
-      userAgent: req.headers["user-agent"],
-    });
+    const lead = isDatabaseConnected()
+      ? await Lead.create({
+          email,
+          companyName,
+          role,
+          teamSize,
+          auditId,
+          estimatedMonthlySavings: monthlySavings,
+          estimatedAnnualSavings: annualSavings,
+          intent,
+          consultationNotes,
+          preferredContactWindow,
+          source: req.headers.referer || "direct",
+          ipAddress: req.ip,
+          userAgent: req.headers["user-agent"],
+        })
+      : createMemoryLead({
+          email,
+          companyName,
+          role,
+          teamSize,
+          auditId,
+          estimatedMonthlySavings: monthlySavings,
+          estimatedAnnualSavings: annualSavings,
+          intent,
+          consultationNotes,
+          preferredContactWindow,
+          source: req.headers.referer || "direct",
+          ipAddress: req.ip,
+          userAgent: req.headers["user-agent"],
+        });
 
     // 5. Send confirmation email (non-blocking)
     try {
@@ -71,9 +110,12 @@ export const createLead = async (req: Request, res: Response) => {
         isHighValue: lead.isHighValue,
       });
 
-      // update status
-      lead.status = "emailed";
-      await lead.save();
+      if (isDatabaseConnected() && "save" in lead) {
+        lead.status = "emailed";
+        await lead.save();
+      } else {
+        markMemoryLeadAsEmailed(String(lead._id));
+      }
     } catch (emailError) {
       console.error("Email sending failed:", emailError);
       // Don't fail request if email fails

@@ -2,7 +2,15 @@ import { Request, Response } from "express";
 import { nanoid } from "nanoid";
 import Audit from "../models/Audit";
 import { runAuditEngine } from "../services/audit/auditEngine";
+import { buildAuditSummary } from "../services/auditSummary";
 import { auditInputSchema } from "../validators/audit.validator";
+import { isDatabaseConnected } from "../config/db";
+import {
+  createMemoryAudit,
+  deleteMemoryAuditById,
+  getMemoryAuditById,
+  getMemoryAuditByPublicId,
+} from "../services/memoryStore";
 
 /**
  * ----------------------------------
@@ -32,23 +40,41 @@ export const createAudit = async (req: Request, res: Response) => {
       useCase,
     });
 
+    result.summary = await buildAuditSummary({
+      tools,
+      teamSize,
+      useCase,
+      totalMonthlySavings: result.totalMonthlySavings,
+      totalAnnualSavings: result.totalAnnualSavings,
+      recommendations: result.recommendations,
+    });
+
     // 3. Generate publicId for shareable URL
     const publicId = nanoid(10);
 
     // 4. Save audit
-    const audit = await Audit.create({
-      tools,
-      teamSize,
-      useCase,
-      result,
-      publicId,
-      isPublic: true,
-    });
+    const audit = isDatabaseConnected()
+      ? await Audit.create({
+          tools,
+          teamSize,
+          useCase,
+          result,
+          publicId,
+          isPublic: true,
+        })
+      : createMemoryAudit({
+          tools,
+          teamSize,
+          useCase,
+          result,
+          publicId,
+          isPublic: true,
+        });
 
     // 5. Return response
     return res.status(201).json({
       success: true,
-      auditId: audit._id,
+      auditId: String(audit._id),
       publicId: audit.publicId,
       result: audit.result,
     });
@@ -70,9 +96,11 @@ export const createAudit = async (req: Request, res: Response) => {
  */
 export const getAuditById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
 
-    const audit = await Audit.findById(id);
+    const audit = isDatabaseConnected()
+      ? await Audit.findById(id)
+      : getMemoryAuditById(id);
 
     if (!audit) {
       return res.status(404).json({
@@ -103,9 +131,11 @@ export const getAuditById = async (req: Request, res: Response) => {
  */
 export const getPublicAudit = async (req: Request, res: Response) => {
   try {
-    const { publicId } = req.params;
+    const publicId = String(req.params.publicId);
 
-    const audit = await Audit.findOne({ publicId });
+    const audit = isDatabaseConnected()
+      ? await Audit.findOne({ publicId })
+      : getMemoryAuditByPublicId(publicId);
 
     if (!audit || !audit.isPublic) {
       return res.status(404).json({
@@ -116,6 +146,8 @@ export const getPublicAudit = async (req: Request, res: Response) => {
 
     // Remove sensitive data
     const publicData = {
+      auditId: String(audit._id),
+      publicId: audit.publicId,
       tools: audit.tools,
       teamSize: audit.teamSize,
       useCase: audit.useCase,
@@ -144,9 +176,11 @@ export const getPublicAudit = async (req: Request, res: Response) => {
  */
 export const deleteAudit = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = String(req.params.id);
 
-    const audit = await Audit.findByIdAndDelete(id);
+    const audit = isDatabaseConnected()
+      ? await Audit.findByIdAndDelete(id)
+      : deleteMemoryAuditById(id);
 
     if (!audit) {
       return res.status(404).json({

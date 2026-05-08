@@ -1,4 +1,12 @@
 {
+  "name": "burnrate-server",
+  "private": true,
+  "scripts": {
+    "dev": "node -r ts-node/register/transpile-only index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "test": "jest --runInBand"
+  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.95.0",
     "cors": "^2.8.6",

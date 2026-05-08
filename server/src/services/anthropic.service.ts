@@ -1,9 +1,5 @@
 import Anthropic from "@anthropic-ai/sdk";
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY!,
-});
-
 interface SummaryInput {
   tools: any[];
   totalMonthlySavings: number;
@@ -14,6 +10,14 @@ interface SummaryInput {
 }
 
 export const generateSummary = async (data: SummaryInput): Promise<string> => {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    throw new Error("ANTHROPIC_API_KEY is not configured");
+  }
+
+  const anthropic = new Anthropic({
+    apiKey: process.env.ANTHROPIC_API_KEY,
+  });
+
   const prompt = buildPrompt(data);
 
   const response = await anthropic.messages.create({

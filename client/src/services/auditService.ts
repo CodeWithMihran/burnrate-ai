@@ -1,30 +1,24 @@
 import api from "./api";
-
-export interface ToolPayload {
-  toolName: string;
-  plan: string;
-  monthlySpend: number;
-  seats: number;
-}
-
-export interface AuditPayload {
-  teamSize: number;
-  useCase: string;
-  tools: ToolPayload[];
-}
+import type {
+  AuditPayload,
+  CreateAuditResponse,
+  PublicAuditResponse,
+} from "../types/audit.types";
 
 export const createAudit = async (
   payload: AuditPayload
 ) => {
-  const response = await api.post("/audits", payload);
+  const response = await api.post<CreateAuditResponse>("/audit", payload);
 
   return response.data;
 };
 
-export const getAuditById = async (
+export const getAuditByPublicId = async (
   publicId: string
 ) => {
-  const response = await api.get(`/audits/${publicId}`);
+  const response = await api.get<PublicAuditResponse>(
+    `/audit/public/${publicId}`
+  );
 
   return response.data;
 };

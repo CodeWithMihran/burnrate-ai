@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 import Audit from "../models/Audit";
-import { generateSummary } from "../services/anthropic.service";
+import { isDatabaseConnected } from "../config/db";
+import {
+  getMemoryAuditById,
+  updateMemoryAuditSummary,
+} from "../services/memoryStore";
+import { buildAuditSummary } from "../services/auditSummary";
 
 /**
  * Generate AI Summary for an Audit
@@ -8,10 +13,12 @@ import { generateSummary } from "../services/anthropic.service";
  */
 export const generateAuditSummary = async (req: Request, res: Response) => {
   try {
-    const { auditId } = req.params;
+    const auditId = String(req.params.auditId);
 
     // 1. Fetch audit
-    const audit = await Audit.findById(auditId);
+    const audit = isDatabaseConnected()
+      ? await Audit.findById(auditId)
+      : getMemoryAuditById(auditId);
 
     if (!audit) {
       return res.status(404).json({
@@ -42,18 +49,15 @@ export const generateAuditSummary = async (req: Request, res: Response) => {
     // 4. Call AI service
     let summary: string;
 
-    try {
-      summary = await generateSummary(inputData);
-    } catch (error) {
-      console.error("AI Summary failed, using fallback:", error);
-
-      // 5. Fallback summary (VERY IMPORTANT for assignment)
-      summary = generateFallbackSummary(inputData);
-    }
+    summary = await buildAuditSummary(inputData);
 
     // 6. Save summary
-    audit.result.summary = summary;
-    await audit.save();
+    if (isDatabaseConnected() && "save" in audit) {
+      audit.result.summary = summary;
+      await audit.save();
+    } else {
+      updateMemoryAuditSummary(auditId, summary);
+    }
 
     // 7. Return response
     return res.status(200).json({
@@ -71,20 +75,3 @@ export const generateAuditSummary = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Fallback Summary Generator
- * Used when AI fails
- */
-const generateFallbackSummary = (data: any): string => {
-  const {
-    totalMonthlySavings,
-    totalAnnualSavings,
-    recommendations,
-  } = data;
-
-  if (totalMonthlySavings < 100) {
-    return `Your current AI tool setup appears to be cost-efficient with minimal savings opportunities. You're spending wisely, and no major optimizations are needed at this time.`;
-  }
-
-  return `You're currently overspending on AI tools. Based on your usage, you can save approximately $${totalMonthlySavings}/month (~$${totalAnnualSavings}/year) by optimizing your plans and switching to better-suited tools. Consider reviewing the recommended changes to reduce unnecessary costs.`;
-};

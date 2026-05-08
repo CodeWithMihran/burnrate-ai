@@ -13,6 +13,8 @@ export type LeadStatus =
   | "converted"
   | "rejected";
 
+export type LeadIntent = "report" | "notify" | "consult";
+
 export interface ILead extends Document {
   email: string;
 
@@ -31,11 +33,14 @@ export interface ILead extends Document {
 
   // Lifecycle tracking
   status: LeadStatus;
+  intent: LeadIntent;
 
   // Metadata
   source?: string; // e.g. "organic", "twitter", "direct"
   ipAddress?: string;
   userAgent?: string;
+  consultationNotes?: string;
+  preferredContactWindow?: string;
 
   createdAt: Date;
   updatedAt: Date;
@@ -108,6 +113,13 @@ const LeadSchema = new Schema<ILead>(
       index: true,
     },
 
+    intent: {
+      type: String,
+      enum: ["report", "notify", "consult"],
+      default: "report",
+      index: true,
+    },
+
     // Optional tracking (for GTM insights)
     source: {
       type: String,
@@ -120,6 +132,18 @@ const LeadSchema = new Schema<ILead>(
 
     userAgent: {
       type: String,
+    },
+
+    consultationNotes: {
+      type: String,
+      trim: true,
+      maxlength: 500,
+    },
+
+    preferredContactWindow: {
+      type: String,
+      trim: true,
+      maxlength: 120,
     },
   },
   {
@@ -148,15 +172,13 @@ LeadSchema.index({ createdAt: -1 });
  * -----------------------------
  */
 
-LeadSchema.pre("save", function (next) {
+LeadSchema.pre("save", function () {
   // Automatically mark high-value leads
   if (this.estimatedMonthlySavings >= 500) {
     this.isHighValue = true;
   } else {
     this.isHighValue = false;
   }
-
-  next();
 });
 
 /**
