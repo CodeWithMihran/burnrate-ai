@@ -10,13 +10,13 @@ const SharedResult = lazy(() => import("./pages/SharedResult"));
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[var(--background)] text-white">
+      <div className="min-h-screen bg-[var(--background)] text-[var(--text-primary)]">
         <Navbar />
         <main>
           <Suspense
             fallback={
               <div className="flex min-h-[50vh] items-center justify-center px-6">
-                <div className="glass-card rounded-[28px] px-8 py-6 text-center text-slate-300">
+                <div className="glass-card rounded-[28px] px-8 py-6 text-center text-stone-600">
                   Loading experience...
                 </div>
               </div>

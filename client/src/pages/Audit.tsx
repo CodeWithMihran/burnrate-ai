@@ -186,127 +186,113 @@ const Audit = () => {
   };
 
   return (
-    <div className="relative overflow-hidden">
-      <div className="hero-mesh opacity-90" />
-      <div className="absolute left-[5%] top-16 -z-10 h-44 w-44 rounded-full bg-[#0f9f95]/12 blur-[90px]" />
-      <div className="absolute right-[4%] top-44 -z-10 h-52 w-52 rounded-full bg-[#f0a36b]/14 blur-[110px]" />
-
-      <section className="section-spacing pb-8 pt-16">
-        <div className="container-custom">
-          <div className="mx-auto max-w-4xl text-center">
-            <div className="eyebrow justify-center">
-              <Sparkles size={14} />
-              Audit workspace
-            </div>
-
-            <h1 className="mt-7 text-5xl font-semibold tracking-tight text-white md:text-7xl">
-              Capture your current AI spend,
-              <span className="gradient-text"> then let the engine do the sorting.</span>
-            </h1>
-
-            <p className="mx-auto mt-7 max-w-3xl text-lg leading-8 text-slate-300">
-              Add the tools your team actually pays for. BurnRate.ai will model
-              plan fit, optimization opportunities, and whether your result is
-              better suited for a simple report, a watchlist, or a consultation.
-            </p>
+    <div className="bg-[#fcfcfd] pb-16 pt-28 md:pb-20 md:pt-32">
+      <section className="pb-10">
+        <div className="container-custom max-w-5xl text-center">
+          <div className="eyebrow">
+            <Sparkles size={14} />
+            Audit Workspace
           </div>
+          <h1 className="mt-6 text-4xl font-bold tracking-tight text-[#111827] md:text-5xl lg:text-6xl">
+            Enter your stack,
+            <span className="gradient-text"> then let the audit sort the rest.</span>
+          </h1>
+          <p className="mx-auto mt-5 max-w-3xl text-lg leading-8 text-gray-500">
+            Add your tools, current plans, monthly spend, and seat counts.
+            BurnRate.ai will compare the setup against tighter-fit options and
+            generate a shareable result.
+          </p>
         </div>
       </section>
 
-      <section className="pb-24">
+      <section>
         <div className="container-custom">
-          <div className="grid gap-8 xl:grid-cols-[0.72fr_0.28fr]">
+          <div className="grid gap-6 xl:grid-cols-[minmax(0,0.7fr)_minmax(300px,0.3fr)]">
             <form
               onSubmit={handleSubmit}
-              className="panel-card rounded-[34px] p-6 md:p-8 xl:p-10"
+              className="panel-card rounded-[30px] p-6 md:p-8"
             >
-              <div className="flex flex-col gap-6 border-b border-white/10 pb-8 md:flex-row md:items-end md:justify-between">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.18em] text-[#b5f6ef]">
-                    Team context
-                  </p>
-                  <h2 className="mt-3 text-3xl font-semibold text-white">
-                    Start with the shape of your team
-                  </h2>
-                  <p className="mt-3 max-w-2xl text-base text-slate-400">
-                    This helps the audit judge whether your plans make sense for
-                    how many people need access and what kind of work they do.
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-300">
-                  Auto-saved locally while you work
-                </div>
-              </div>
-
-              <div className="mt-8 grid gap-6 md:grid-cols-2">
-                <div>
-                  <label className="mb-3 block text-sm font-medium text-slate-200">
-                    Team size
-                  </label>
-
-                  <input
-                    type="number"
-                    min="1"
-                    placeholder="e.g. 8"
-                    value={teamSize}
-                    onChange={(e) => setTeamSize(e.target.value)}
-                    className="input-shell w-full rounded-[22px] px-5 py-4 text-white placeholder:text-slate-500"
-                    required
-                  />
-                </div>
-
-                <div>
-                  <label className="mb-3 block text-sm font-medium text-slate-200">
-                    Primary use case
-                  </label>
-
-                  <select
-                    value={useCase}
-                    onChange={(e) =>
-                      setUseCase(e.target.value as AuditPayload["useCase"] | "")
-                    }
-                    className="input-shell w-full rounded-[22px] px-5 py-4 text-white"
-                    required
-                  >
-                    <option value="" className="bg-[#081018]">
-                      Select use case
-                    </option>
-                    {useCases.map((item) => (
-                      <option
-                        key={item.value}
-                        value={item.value}
-                        className="bg-[#081018]"
-                      >
-                        {item.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              <div className="mt-14">
-                <div className="flex flex-col gap-5 border-b border-white/10 pb-8 sm:flex-row sm:items-end sm:justify-between">
+              <div className="border-b border-gray-200 pb-8">
+                <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
                   <div>
-                    <p className="text-sm uppercase tracking-[0.18em] text-[#b5f6ef]">
-                      Current stack
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+                      Team Information
                     </p>
-                    <h2 className="mt-3 text-3xl font-semibold text-white">
-                      Add your AI tools and plans
+                    <h2 className="mt-3 text-2xl font-bold text-[#111827] md:text-3xl">
+                      Start with team context
                     </h2>
-                    <p className="mt-3 max-w-2xl text-base text-slate-400">
-                      Enter what you pay today. The stronger your inputs, the
-                      more defensible the recommendation set becomes.
+                    <p className="mt-3 max-w-2xl text-base leading-7 text-gray-500">
+                      This helps the audit judge whether your current plans make
+                      sense for how many people actually need access.
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl bg-blue-50 px-4 py-3 text-sm font-medium text-blue-700">
+                    Form progress is saved locally
+                  </div>
+                </div>
+
+                <div className="mt-8 grid gap-5 md:grid-cols-2">
+                  <div className="rounded-[22px] border border-gray-200 bg-white p-5">
+                    <label className="mb-3 block text-sm font-semibold text-gray-700">
+                      Team Size
+                    </label>
+                    <input
+                      type="number"
+                      min="1"
+                      placeholder="e.g. 8"
+                      value={teamSize}
+                      onChange={(e) => setTeamSize(e.target.value)}
+                      className="input-shell rounded-xl px-4 py-3.5"
+                      required
+                    />
+                  </div>
+
+                  <div className="rounded-[22px] border border-gray-200 bg-white p-5">
+                    <label className="mb-3 block text-sm font-semibold text-gray-700">
+                      Primary Use Case
+                    </label>
+                    <select
+                      value={useCase}
+                      onChange={(e) =>
+                        setUseCase(e.target.value as AuditPayload["useCase"] | "")
+                      }
+                      className="input-shell rounded-xl px-4 py-3.5"
+                      required
+                    >
+                      <option value="">Select use case</option>
+                      {useCases.map((item) => (
+                        <option key={item.value} value={item.value}>
+                          {item.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-10">
+                <div className="flex flex-col gap-4 border-b border-gray-200 pb-8 md:flex-row md:items-end md:justify-between">
+                  <div>
+                    <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+                      Tool Inputs
+                    </p>
+                    <h2 className="mt-3 text-2xl font-bold text-[#111827] md:text-3xl">
+                      Add your current AI tools
+                    </h2>
+                    <p className="mt-3 text-base leading-7 text-gray-500">
+                      Each block below represents one tool, plan, and spend
+                      line.
                     </p>
                   </div>
 
                   <button
                     type="button"
                     onClick={addTool}
-                    className="inline-flex items-center justify-center gap-2 rounded-full border border-[#0f9f95]/20 bg-[#0f9f95]/10 px-5 py-3 text-sm font-semibold text-[#b5f6ef] transition-all duration-300 hover:bg-[#0f9f95]/16"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#111827] px-5 py-3 text-sm font-bold text-white transition-all hover:bg-black"
                   >
                     <Plus size={18} />
-                    Add another tool
+                    Add Tool
                   </button>
                 </div>
 
@@ -314,20 +300,19 @@ const Audit = () => {
                   {tools.map((tool, index) => (
                     <div
                       key={`${tool.toolName}-${index}`}
-                      className="glass-card rounded-[30px] p-6"
+                      className="rounded-[26px] border border-gray-200 bg-white p-6 shadow-sm"
                     >
                       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                         <div className="flex items-center gap-4">
-                          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0f9f95]/10 text-[#79e0d8]">
+                          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
                             <Database size={20} />
                           </div>
-
                           <div>
-                            <h3 className="text-xl font-semibold text-white">
+                            <h3 className="text-xl font-bold text-[#111827]">
                               Tool #{index + 1}
                             </h3>
-                            <p className="text-sm text-slate-400">
-                              Subscription details for one tool or API line item
+                            <p className="text-sm text-gray-500">
+                              Pricing details for this line item
                             </p>
                           </div>
                         </div>
@@ -336,7 +321,7 @@ const Audit = () => {
                           <button
                             type="button"
                             onClick={() => removeTool(index)}
-                            className="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-red-400/20 bg-red-400/10 text-red-200 transition-all duration-300 hover:bg-red-400/18"
+                            className="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-red-200 bg-red-50 text-red-600 transition-all hover:bg-red-100"
                             aria-label={`Remove tool ${index + 1}`}
                           >
                             <Trash2 size={18} />
@@ -344,69 +329,56 @@ const Audit = () => {
                         ) : null}
                       </div>
 
-                      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-                        <div>
-                          <label className="mb-3 block text-sm font-medium text-slate-200">
-                            Tool name
+                      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                        <div className="rounded-[20px] border border-gray-200 bg-slate-50 p-4">
+                          <label className="mb-3 block text-sm font-semibold text-gray-700">
+                            Tool Name
                           </label>
-
                           <select
                             value={tool.toolName}
                             onChange={(e) =>
                               handleToolChange(index, "toolName", e.target.value)
                             }
-                            className="input-shell w-full rounded-[22px] px-5 py-4 text-white"
+                            className="input-shell rounded-xl px-4 py-3.5"
                             required
                           >
-                            <option value="" className="bg-[#081018]">
-                              Select tool
-                            </option>
+                            <option value="">Select tool</option>
                             {Object.keys(toolPlanOptions).map((toolName) => (
-                              <option
-                                key={toolName}
-                                value={toolName}
-                                className="bg-[#081018]"
-                              >
+                              <option key={toolName} value={toolName}>
                                 {toolName}
                               </option>
                             ))}
                           </select>
                         </div>
 
-                        <div>
-                          <label className="mb-3 block text-sm font-medium text-slate-200">
-                            Current plan
+                        <div className="rounded-[20px] border border-gray-200 bg-slate-50 p-4">
+                          <label className="mb-3 block text-sm font-semibold text-gray-700">
+                            Current Plan
                           </label>
-
                           <select
                             value={tool.plan}
                             onChange={(e) =>
                               handleToolChange(index, "plan", e.target.value)
                             }
-                            className="input-shell w-full rounded-[22px] px-5 py-4 text-white"
+                            className="input-shell rounded-xl px-4 py-3.5"
                             required
                             disabled={!tool.toolName}
                           >
-                            <option value="" className="bg-[#081018]">
+                            <option value="">
                               {tool.toolName ? "Select plan" : "Choose tool first"}
                             </option>
                             {(toolPlanOptions[tool.toolName] || []).map((plan) => (
-                              <option
-                                key={plan}
-                                value={plan}
-                                className="bg-[#081018]"
-                              >
+                              <option key={plan} value={plan}>
                                 {plan}
                               </option>
                             ))}
                           </select>
                         </div>
 
-                        <div>
-                          <label className="mb-3 block text-sm font-medium text-slate-200">
-                            Monthly spend
+                        <div className="rounded-[20px] border border-gray-200 bg-slate-50 p-4">
+                          <label className="mb-3 block text-sm font-semibold text-gray-700">
+                            Monthly Spend ($)
                           </label>
-
                           <input
                             type="number"
                             min="0"
@@ -416,16 +388,15 @@ const Audit = () => {
                             onChange={(e) =>
                               handleToolChange(index, "monthlySpend", e.target.value)
                             }
-                            className="input-shell w-full rounded-[22px] px-5 py-4 text-white placeholder:text-slate-500"
+                            className="input-shell rounded-xl px-4 py-3.5"
                             required
                           />
                         </div>
 
-                        <div>
-                          <label className="mb-3 block text-sm font-medium text-slate-200">
-                            Seats / users
+                        <div className="rounded-[20px] border border-gray-200 bg-slate-50 p-4">
+                          <label className="mb-3 block text-sm font-semibold text-gray-700">
+                            Seats / Users
                           </label>
-
                           <input
                             type="number"
                             min="1"
@@ -434,7 +405,7 @@ const Audit = () => {
                             onChange={(e) =>
                               handleToolChange(index, "seats", e.target.value)
                             }
-                            className="input-shell w-full rounded-[22px] px-5 py-4 text-white placeholder:text-slate-500"
+                            className="input-shell rounded-xl px-4 py-3.5"
                             required
                           />
                         </div>
@@ -444,90 +415,87 @@ const Audit = () => {
                 </div>
               </div>
 
-              <div className="mt-12 flex flex-col gap-4 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
-                <div className="flex items-start gap-3 text-sm text-slate-400">
-                  <ShieldCheck size={18} className="mt-0.5 text-[#6bd2c7]" />
-                  <span>
-                    Your inputs stay private. The shareable URL created after the
-                    audit only exposes the public-facing result.
-                  </span>
+              <div className="mt-10 flex flex-col gap-5 border-t border-gray-200 pt-8 lg:flex-row lg:items-center lg:justify-between">
+                <div className="flex items-start gap-3">
+                  <ShieldCheck size={18} className="mt-1 text-blue-600" />
+                  <p className="max-w-xl text-sm leading-6 text-gray-500">
+                    Private input data stays in the audit flow. The public share
+                    URL only exposes the report output, not the private lead
+                    fields.
+                  </p>
                 </div>
 
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="group inline-flex items-center justify-center rounded-full bg-[#0f9f95] px-8 py-4 text-base font-semibold text-[#041015] shadow-[0_18px_34px_rgba(15,159,149,0.24)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1cb8ac] disabled:cursor-not-allowed disabled:opacity-70"
+                  className="inline-flex items-center justify-center rounded-full bg-[#111827] px-8 py-4 font-bold text-white transition-all hover:bg-black disabled:cursor-not-allowed disabled:opacity-70"
                 >
                   {isLoading ? (
                     <>
-                      <Loader2 size={20} className="mr-3 animate-spin" />
-                      Generating audit
+                      <Loader2 size={18} className="mr-3 animate-spin" />
+                      Generating Audit...
                     </>
                   ) : (
                     <>
-                      Generate audit
-                      <ArrowRight
-                        size={18}
-                        className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
-                      />
+                      Generate Audit
+                      <ArrowRight size={18} className="ml-2" />
                     </>
                   )}
                 </button>
               </div>
             </form>
 
-            <aside className="space-y-6">
-              <div className="glass-card rounded-[30px] p-6">
-                <p className="text-sm uppercase tracking-[0.18em] text-[#b5f6ef]">
-                  Audit preview
+            <aside className="space-y-5 xl:sticky xl:top-28 xl:self-start">
+              <div className="glass-card rounded-[28px] p-6">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+                  Preview
                 </p>
-                <div className="mt-5 grid gap-4">
-                  <div className="rounded-[24px] bg-white/[0.04] p-5">
-                    <p className="text-sm text-slate-400">Tools added</p>
-                    <h3 className="mt-2 text-4xl font-semibold text-white">
+                <div className="mt-4 grid gap-4">
+                  <div className="rounded-[20px] border border-gray-200 bg-slate-50 p-5">
+                    <p className="text-sm text-gray-500">Tools Added</p>
+                    <h3 className="mt-2 text-4xl font-bold text-[#111827]">
                       {auditPreview.selectedTools}
                     </h3>
                   </div>
-
-                  <div className="rounded-[24px] bg-white/[0.04] p-5">
-                    <p className="text-sm text-slate-400">Current monthly spend</p>
-                    <h3 className="mt-2 text-4xl font-semibold text-white">
+                  <div className="rounded-[20px] border border-gray-200 bg-slate-50 p-5">
+                    <p className="text-sm text-gray-500">Current Monthly Spend</p>
+                    <h3 className="mt-2 text-4xl font-bold text-[#111827]">
                       ${auditPreview.totalMonthlySpend.toFixed(0)}
                     </h3>
                   </div>
                 </div>
               </div>
 
-              <div className="glass-card rounded-[30px] p-6">
-                <p className="text-sm uppercase tracking-[0.18em] text-[#b5f6ef]">
-                  What the result includes
+              <div className="glass-card rounded-[28px] p-6">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+                  Included In Result
                 </p>
-
-                <div className="mt-5 space-y-4 text-sm text-slate-300">
-                  <div className="rounded-[22px] bg-white/[0.04] p-4">
-                    Rule-based pricing recommendations for each tool
-                  </div>
-                  <div className="rounded-[22px] bg-white/[0.04] p-4">
-                    AI-generated summary tailored to your stack
-                  </div>
-                  <div className="rounded-[22px] bg-white/[0.04] p-4">
-                    Public share link plus report capture flow
-                  </div>
-                  <div className="rounded-[22px] bg-white/[0.04] p-4">
-                    Consultation or watchlist path based on savings level
-                  </div>
+                <div className="mt-4 space-y-3">
+                  {[
+                    "Rule-based tool recommendations",
+                    "AI-generated summary",
+                    "Shareable public report URL",
+                    "Lead capture after value is shown",
+                  ].map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-[20px] border border-gray-200 bg-slate-50 p-4 text-sm leading-6 text-gray-700"
+                    >
+                      {item}
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              <div className="glass-card rounded-[30px] p-6">
-                <p className="text-sm uppercase tracking-[0.18em] text-[#b5f6ef]">
-                  Supported inputs
+              <div className="glass-card rounded-[28px] p-6">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-blue-600">
+                  Supported Tools
                 </p>
-                <div className="mt-5 flex flex-wrap gap-2">
+                <div className="mt-4 flex flex-wrap gap-2">
                   {Object.keys(toolPlanOptions).map((toolName) => (
                     <span
                       key={toolName}
-                      className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-2 text-xs uppercase tracking-[0.14em] text-slate-300"
+                      className="rounded-full border border-gray-200 bg-slate-50 px-3 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-gray-600"
                     >
                       {toolName}
                     </span>

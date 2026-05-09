@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowRight, Menu, Sparkles, X } from "lucide-react";
+import { ArrowRight, Menu, X } from "lucide-react";
 
 const navLinks = [
   { name: "Home", path: "/" },
-  { name: "Audit", path: "/audit" },
+  { name: "Features", path: "/#features" },
+  { name: "Workflow", path: "/#workflow" },
 ];
 
 const Navbar = () => {
@@ -13,107 +14,112 @@ const Navbar = () => {
 
   const closeMenu = () => setIsOpen(false);
 
+  const isAuditPage = location.pathname === "/audit";
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[rgba(8,16,24,0.72)] backdrop-blur-2xl">
+    <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-[#0a0a0a]/90 backdrop-blur-md">
       <div className="container-custom">
-        <div className="flex h-18 items-center justify-between py-4">
+        <div className="flex h-20 items-center justify-between transition-all duration-300">
           <Link
             to="/"
             onClick={closeMenu}
-            className="flex items-center gap-3 transition-opacity duration-300 hover:opacity-85"
+            className="group flex items-center gap-4"
           >
-            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-[#0f9f95] via-[#6bd2c7] to-[#f0a36b] shadow-[0_14px_32px_rgba(15,159,149,0.28)]">
-              <Sparkles size={18} className="text-[#041015]" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/10 text-lg font-black italic text-white shadow-[0_0_24px_rgba(255,255,255,0.08)]">
+              BR
             </div>
 
             <div className="flex flex-col">
-              <span className="text-base font-semibold tracking-tight text-white">
-                BurnRate.ai
-              </span>
-              <span className="text-xs uppercase tracking-[0.18em] text-slate-400">
-                AI Spend Auditor
-              </span>
+              <div className="flex items-baseline">
+                <span className="text-2xl font-black uppercase italic tracking-tighter text-white">
+                  Burn
+                </span>
+                <span className="ml-2 bg-gradient-to-r from-gray-100 via-white to-gray-500 bg-clip-text text-2xl font-extralight tracking-tight text-transparent">
+                  Rate<span className="font-bold">AI</span>
+                </span>
+              </div>
+              <div className="mt-1 h-[2px] w-0 bg-gradient-to-r from-blue-500 to-transparent transition-all duration-500 group-hover:w-full" />
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] p-2 md:flex">
-            {navLinks.map((link) => {
-              const isActive = location.pathname === link.path;
-
-              return (
-                <Link
+          <div className="hidden items-center gap-10 md:flex">
+            <div className="flex items-center gap-8 text-[13px] font-semibold uppercase tracking-[0.2em] text-gray-400">
+              {navLinks.map((link) => (
+                <a
                   key={link.name}
-                  to={link.path}
-                  className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-300 ${
-                    isActive
-                      ? "bg-white text-[#071017] shadow-sm"
-                      : "text-slate-300 hover:bg-white/5 hover:text-white"
-                  }`}
+                  href={link.path}
+                  className="relative transition-colors duration-300 hover:text-white"
                 >
                   {link.name}
-                </Link>
-              );
-            })}
-          </nav>
+                  <span className="absolute -bottom-2 left-0 h-[2px] w-0 bg-gradient-to-r from-white to-transparent transition-all duration-300 hover:w-full" />
+                </a>
+              ))}
+            </div>
 
-          <div className="hidden md:block">
-            <Link
-              to="/audit"
-              className="group inline-flex items-center justify-center rounded-full bg-[#0f9f95] px-5 py-3 text-sm font-semibold text-[#041015] shadow-[0_14px_28px_rgba(15,159,149,0.25)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#20b4a9]"
-            >
-              Run Free Audit
-              <ArrowRight
-                size={16}
-                className="ml-2 transition-transform duration-300 group-hover:translate-x-1"
-              />
-            </Link>
+            <div className="flex items-center gap-4">
+              <Link
+                to={isAuditPage ? "/" : "/audit"}
+                className="text-sm font-medium text-white/70 transition-colors hover:text-white"
+              >
+                {isAuditPage ? "Back to Home" : "Run Audit"}
+              </Link>
+              <Link
+                to="/audit"
+                className="inline-flex items-center rounded-full bg-white px-6 py-2.5 text-sm font-bold text-black shadow-[0_0_20px_rgba(255,255,255,0.08)] transition-all hover:scale-[1.03] hover:bg-gray-200"
+              >
+                Get Started
+              </Link>
+            </div>
           </div>
 
           <button
             type="button"
             onClick={() => setIsOpen((current) => !current)}
-            className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-slate-200 md:hidden"
+            className="rounded-xl p-2 text-white md:hidden"
             aria-label={isOpen ? "Close navigation" : "Open navigation"}
           >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
+      </div>
 
-        {isOpen ? (
-          <div className="pb-4 md:hidden">
-            <div className="glass-card rounded-[28px] p-4">
-              <nav className="space-y-2">
-                {navLinks.map((link) => {
-                  const isActive = location.pathname === link.path;
-
-                  return (
-                    <Link
-                      key={link.name}
-                      to={link.path}
-                      onClick={closeMenu}
-                      className={`block rounded-2xl px-4 py-3 text-sm font-medium transition-colors duration-300 ${
-                        isActive
-                          ? "bg-white text-[#081018]"
-                          : "text-slate-200 hover:bg-white/5 hover:text-white"
-                      }`}
-                    >
-                      {link.name}
-                    </Link>
-                  );
-                })}
-              </nav>
-
+      {isOpen ? (
+        <div className="border-t border-white/10 bg-[#0a0a0a] md:hidden">
+          <div className="container-custom py-6">
+            <div className="flex flex-col gap-4 text-center font-medium">
+              <Link
+                to="/"
+                onClick={closeMenu}
+                className="rounded-xl py-3 text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
+              >
+                Home
+              </Link>
+              <a
+                href="/#features"
+                onClick={closeMenu}
+                className="rounded-xl py-3 text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
+              >
+                Features
+              </a>
+              <a
+                href="/#workflow"
+                onClick={closeMenu}
+                className="rounded-xl py-3 text-gray-300 transition-colors hover:bg-white/5 hover:text-white"
+              >
+                Workflow
+              </a>
               <Link
                 to="/audit"
                 onClick={closeMenu}
-                className="mt-4 inline-flex w-full items-center justify-center rounded-2xl bg-[#0f9f95] px-5 py-3.5 text-sm font-semibold text-[#041015]"
+                className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-3 font-bold text-black"
               >
-                Start Your Audit
+                Start Audit
+                <ArrowRight size={16} className="ml-2" />
               </Link>
             </div>
           </div>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
     </header>
   );
 };

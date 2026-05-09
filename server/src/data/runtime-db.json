@@ -35,6 +35,306 @@
       "isPublic": true,
       "createdAt": "2026-05-08T13:49:06.289Z",
       "updatedAt": "2026-05-08T13:49:06.289Z"
+    },
+    {
+      "_id": "-fyDPHeSnUZq",
+      "tools": [
+        {
+          "toolName": "ChatGPT",
+          "plan": "Plus",
+          "monthlySpend": 0.02,
+          "seats": 4
+        }
+      ],
+      "teamSize": 4,
+      "useCase": "coding",
+      "result": {
+        "totalCurrentSpend": 0.02,
+        "totalOptimizedSpend": 0.02,
+        "totalMonthlySavings": 0,
+        "totalAnnualSavings": 0,
+        "recommendations": [
+          {
+            "toolName": "ChatGPT",
+            "currentPlan": "Plus",
+            "recommendedPlan": "Plus",
+            "currentSpend": 0.02,
+            "optimizedSpend": 0.02,
+            "savings": 0,
+            "action": "stay",
+            "reason": "The current Plus plan is usable, but it is not the most natural fit for a coding workflow based on how this tool is typically positioned."
+          }
+        ],
+        "summary": "Your current AI tool setup appears cost-efficient for a coding workflow. Savings opportunities are limited right now, so the best move is to keep the stack as-is and revisit pricing changes later."
+      },
+      "publicId": "GgPlCx_JGJ",
+      "isPublic": true,
+      "createdAt": "2026-05-09T07:07:08.473Z",
+      "updatedAt": "2026-05-09T07:07:08.473Z"
+    },
+    {
+      "_id": "lJpxvLtVGWLE",
+      "tools": [
+        {
+          "toolName": "ChatGPT",
+          "plan": "Plus",
+          "monthlySpend": 0.02,
+          "seats": 4
+        }
+      ],
+      "teamSize": 4,
+      "useCase": "coding",
+      "result": {
+        "totalCurrentSpend": 0.02,
+        "totalOptimizedSpend": 0.02,
+        "totalMonthlySavings": 0,
+        "totalAnnualSavings": 0,
+        "recommendations": [
+          {
+            "toolName": "ChatGPT",
+            "currentPlan": "Plus",
+            "recommendedPlan": "Plus",
+            "currentSpend": 0.02,
+            "optimizedSpend": 0.02,
+            "savings": 0,
+            "action": "stay",
+            "reason": "The current Plus plan is usable, but it is not the most natural fit for a coding workflow based on how this tool is typically positioned."
+          }
+        ],
+        "summary": "Your current AI tool setup appears cost-efficient for a coding workflow. Savings opportunities are limited right now, so the best move is to keep the stack as-is and revisit pricing changes later."
+      },
+      "publicId": "W97awmiIrd",
+      "isPublic": true,
+      "createdAt": "2026-05-09T07:28:22.235Z",
+      "updatedAt": "2026-05-09T07:28:22.235Z"
+    },
+    {
+      "_id": "gvJcLaFi4a3N",
+      "tools": [
+        {
+          "toolName": "ChatGPT",
+          "plan": "Plus",
+          "monthlySpend": 0.02,
+          "seats": 4
+        },
+        {
+          "toolName": "Cursor",
+          "plan": "Business",
+          "monthlySpend": 200,
+          "seats": 12
+        }
+      ],
+      "teamSize": 4,
+      "useCase": "coding",
+      "result": {
+        "totalCurrentSpend": 200.02,
+        "totalOptimizedSpend": 200.02,
+        "totalMonthlySavings": 0,
+        "totalAnnualSavings": 0,
+        "recommendations": [
+          {
+            "toolName": "ChatGPT",
+            "currentPlan": "Plus",
+            "recommendedPlan": "Plus",
+            "currentSpend": 0.02,
+            "optimizedSpend": 0.02,
+            "savings": 0,
+            "action": "stay",
+            "reason": "The current Plus plan is usable, but it is not the most natural fit for a coding workflow based on how this tool is typically positioned."
+          },
+          {
+            "toolName": "Cursor",
+            "currentPlan": "Business",
+            "recommendedPlan": "Business",
+            "currentSpend": 200,
+            "optimizedSpend": 200,
+            "savings": 0,
+            "action": "stay",
+            "reason": "Your current Business plan already looks reasonably aligned to the number of seats and the stated use case."
+          }
+        ],
+        "summary": "Your current AI tool setup appears cost-efficient for a coding workflow. Savings opportunities are limited right now, so the best move is to keep the stack as-is and revisit pricing changes later."
+      },
+      "publicId": "49JodHmmIL",
+      "isPublic": true,
+      "createdAt": "2026-05-09T13:26:19.821Z",
+      "updatedAt": "2026-05-09T13:26:19.821Z"
+    },
+    {
+      "_id": "_f2AMdtj94Li",
+      "tools": [
+        {
+          "toolName": "Windsurf",
+          "plan": "Enterprise",
+          "monthlySpend": 100,
+          "seats": 3
+        }
+      ],
+      "teamSize": 4,
+      "useCase": "writing",
+      "result": {
+        "totalCurrentSpend": 100,
+        "totalOptimizedSpend": 90,
+        "totalMonthlySavings": 10,
+        "totalAnnualSavings": 120,
+        "recommendations": [
+          {
+            "toolName": "Windsurf",
+            "currentPlan": "Enterprise",
+            "recommendedPlan": "Teams",
+            "currentSpend": 100,
+            "optimizedSpend": 90,
+            "savings": 10,
+            "action": "downgrade",
+            "reason": "This looks like an enterprise or contract-priced plan, but the team size still fits a public lower-tier plan. Moving down to Teams is a more defensible savings recommendation than assuming enterprise-only needs."
+          }
+        ],
+        "summary": "Your current AI tool setup appears cost-efficient for a writing workflow. Savings opportunities are limited right now, so the best move is to keep the stack as-is and revisit pricing changes later."
+      },
+      "publicId": "2EBRbz64_Z",
+      "isPublic": true,
+      "createdAt": "2026-05-09T13:30:05.139Z",
+      "updatedAt": "2026-05-09T13:30:05.139Z"
+    },
+    {
+      "_id": "GVLilpFAy4b0",
+      "tools": [
+        {
+          "toolName": "Windsurf",
+          "plan": "Enterprise",
+          "monthlySpend": 100,
+          "seats": 3
+        }
+      ],
+      "teamSize": 4,
+      "useCase": "writing",
+      "result": {
+        "totalCurrentSpend": 100,
+        "totalOptimizedSpend": 90,
+        "totalMonthlySavings": 10,
+        "totalAnnualSavings": 120,
+        "recommendations": [
+          {
+            "toolName": "Windsurf",
+            "currentPlan": "Enterprise",
+            "recommendedPlan": "Teams",
+            "currentSpend": 100,
+            "optimizedSpend": 90,
+            "savings": 10,
+            "action": "downgrade",
+            "reason": "This looks like an enterprise or contract-priced plan, but the team size still fits a public lower-tier plan. Moving down to Teams is a more defensible savings recommendation than assuming enterprise-only needs."
+          }
+        ],
+        "summary": "Your current AI tool setup appears cost-efficient for a writing workflow. Savings opportunities are limited right now, so the best move is to keep the stack as-is and revisit pricing changes later."
+      },
+      "publicId": "TAmw_r7nYF",
+      "isPublic": true,
+      "createdAt": "2026-05-09T13:51:34.957Z",
+      "updatedAt": "2026-05-09T13:51:34.957Z"
+    },
+    {
+      "_id": "00YNIKq1yBBP",
+      "tools": [
+        {
+          "toolName": "Windsurf",
+          "plan": "Enterprise",
+          "monthlySpend": 100,
+          "seats": 3
+        },
+        {
+          "toolName": "Anthropic API",
+          "plan": "API Direct",
+          "monthlySpend": 180.25,
+          "seats": 12
+        }
+      ],
+      "teamSize": 20,
+      "useCase": "research",
+      "result": {
+        "totalCurrentSpend": 280.25,
+        "totalOptimizedSpend": 234.2,
+        "totalMonthlySavings": 46.05,
+        "totalAnnualSavings": 552.6,
+        "recommendations": [
+          {
+            "toolName": "Windsurf",
+            "currentPlan": "Enterprise",
+            "recommendedPlan": "Teams",
+            "currentSpend": 100,
+            "optimizedSpend": 90,
+            "savings": 10,
+            "action": "downgrade",
+            "reason": "This looks like an enterprise or contract-priced plan, but the team size still fits a public lower-tier plan. Moving down to Teams is a more defensible savings recommendation than assuming enterprise-only needs."
+          },
+          {
+            "toolName": "Anthropic API",
+            "currentPlan": "API Direct",
+            "recommendedPlan": "Anthropic API via discounted credits",
+            "currentSpend": 180.25,
+            "optimizedSpend": 144.2,
+            "savings": 36.05,
+            "action": "switch",
+            "reason": "This is a usage-based research workload. Without reliable token telemetry, the cleanest defensible recommendation is procurement savings rather than a fake plan switch."
+          }
+        ],
+        "summary": "Your current AI tool setup appears cost-efficient for a research workflow. Savings opportunities are limited right now, so the best move is to keep the stack as-is and revisit pricing changes later."
+      },
+      "publicId": "SppauFcqPI",
+      "isPublic": true,
+      "createdAt": "2026-05-09T13:52:29.621Z",
+      "updatedAt": "2026-05-09T13:52:29.621Z"
+    },
+    {
+      "_id": "VklmCZ3UAyKZ",
+      "tools": [
+        {
+          "toolName": "Windsurf",
+          "plan": "Enterprise",
+          "monthlySpend": 100,
+          "seats": 3
+        },
+        {
+          "toolName": "Anthropic API",
+          "plan": "API Direct",
+          "monthlySpend": 180.25,
+          "seats": 12
+        }
+      ],
+      "teamSize": 20,
+      "useCase": "research",
+      "result": {
+        "totalCurrentSpend": 280.25,
+        "totalOptimizedSpend": 234.2,
+        "totalMonthlySavings": 46.05,
+        "totalAnnualSavings": 552.6,
+        "recommendations": [
+          {
+            "toolName": "Windsurf",
+            "currentPlan": "Enterprise",
+            "recommendedPlan": "Teams",
+            "currentSpend": 100,
+            "optimizedSpend": 90,
+            "savings": 10,
+            "action": "downgrade",
+            "reason": "This looks like an enterprise or contract-priced plan, but the team size still fits a public lower-tier plan. Moving down to Teams is a more defensible savings recommendation than assuming enterprise-only needs."
+          },
+          {
+            "toolName": "Anthropic API",
+            "currentPlan": "API Direct",
+            "recommendedPlan": "Anthropic API via discounted credits",
+            "currentSpend": 180.25,
+            "optimizedSpend": 144.2,
+            "savings": 36.05,
+            "action": "switch",
+            "reason": "This is a usage-based research workload. Without reliable token telemetry, the cleanest defensible recommendation is procurement savings rather than a fake plan switch."
+          }
+        ],
+        "summary": "Your current AI tool setup appears cost-efficient for a research workflow. Savings opportunities are limited right now, so the best move is to keep the stack as-is and revisit pricing changes later."
+      },
+      "publicId": "V_NsvOYETf",
+      "isPublic": true,
+      "createdAt": "2026-05-09T14:00:05.713Z",
+      "updatedAt": "2026-05-09T14:00:05.713Z"
     }
   ],
   "leads": []
