@@ -6,5 +6,8 @@
     "build": "npm --prefix ./src run build",
     "test": "npm --prefix ./src run test",
     "start": "npm --prefix ./src run start"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.2"
   }
 }
