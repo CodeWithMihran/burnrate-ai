@@ -205,7 +205,6 @@ const AuditSchema = new Schema<IAudit>(
       type: String,
       required: true,
       unique: true,
-      index: true,
     },
 
     isPublic: {
