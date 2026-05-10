@@ -81,6 +81,17 @@ Current CI jobs:
 - Browser: Chrome
 - Device modes: laptop and mobile Lighthouse runs, plus manual browser interaction
 
+### Visual evidence used during review
+
+The following screenshots were captured from the deployed product and used to verify that the main user journey is coherent visually as well as functionally:
+
+- [Landing page](docs/screenshots/01-home.png)
+- [Audit page top section](docs/screenshots/02-audit-top.png)
+- [Populated audit form](docs/screenshots/03-audit-tools.png)
+- [Shared result top section](docs/screenshots/04-results-top.png)
+- [Recommendation detail](docs/screenshots/05-recommendations.png)
+- [Report capture and AI summary section](docs/screenshots/06-report-capture.png)
+
 ## End-to-End Scenarios
 
 ### 1. Landing page loads

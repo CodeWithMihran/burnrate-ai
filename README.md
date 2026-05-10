@@ -10,6 +10,46 @@ The assignment brief rewards product judgment as much as implementation, so this
 - Backend API: [https://burnrate-ai-2tsb.onrender.com](https://burnrate-ai-2tsb.onrender.com)
 - Health check: [https://burnrate-ai-2tsb.onrender.com/api/health](https://burnrate-ai-2tsb.onrender.com/api/health)
 
+## Product Walkthrough
+
+The screenshots below show the actual deployed product flow, from landing page to structured audit input to shared result output.
+
+### 1. Landing page
+
+The landing page frames the product as a focused AI spend audit rather than a vague AI assistant.
+
+![BurnRate.ai landing page](docs/screenshots/01-home.png)
+
+### 2. Audit entry
+
+The audit page starts with team context first, then moves into tool-by-tool inputs. This keeps the flow operational and readable instead of feeling like a generic long form.
+
+![BurnRate.ai audit page top section](docs/screenshots/02-audit-top.png)
+
+### 3. Multi-tool input state
+
+This is the most realistic product-use moment: multiple tools, plans, seat counts, and current monthly spend entered in one place, with a live sidebar preview of the stack.
+
+![BurnRate.ai populated audit form](docs/screenshots/03-audit-tools.png)
+
+### 4. Shared result headline
+
+The report leads with the savings summary, the public share URL, and the main result metrics so the output can work both as a user-facing result and as a lightweight internal decision memo.
+
+![BurnRate.ai shared result top section](docs/screenshots/04-results-top.png)
+
+### 5. Recommendation detail
+
+The recommendation section shows the product's core value: tool-by-tool guidance tied to current plan, recommended plan, and an explainable savings delta.
+
+![BurnRate.ai tool-by-tool recommendations](docs/screenshots/05-recommendations.png)
+
+### 6. Post-result capture and summary
+
+The report capture section appears after value is shown, which keeps the product honest and closer to the assignment brief. The AI summary and the follow-up path live in the same flow.
+
+![BurnRate.ai report capture and summary section](docs/screenshots/06-report-capture.png)
+
 ## What The Product Does
 
 - Captures team size, use case, tool plans, seat counts, and current monthly spend
