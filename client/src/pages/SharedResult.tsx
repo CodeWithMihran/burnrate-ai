@@ -16,7 +16,7 @@ import {
 import { getAuditByPublicId } from "../services/auditService";
 import type { AuditRecommendation } from "../types/audit.types";
 import { saveLead } from "../services/leadService";
-import { getShareBaseUrl } from "../services/api";
+import { getOgImageUrl, getShareBaseUrl } from "../services/api";
 
 interface AuditData {
   auditId: string;
@@ -126,7 +126,7 @@ const SharedResult = () => {
       return;
     }
 
-    document.title = `BurnRate.ai Audit • Save ${formatCurrency(
+    document.title = `BurnRate.ai Audit - Save ${formatCurrency(
       auditData.yearlySavings
     )}/year`;
 
@@ -140,8 +140,14 @@ const SharedResult = () => {
     updateMetaProperty("og:title", "BurnRate.ai Audit Results");
     updateMetaProperty("og:description", description);
     updateMetaProperty("og:url", getShareUrl(auditData.publicId));
+    updateMetaProperty("og:image", getOgImageUrl());
+    updateMetaProperty("og:image:width", "1200");
+    updateMetaProperty("og:image:height", "630");
+    updateMetaProperty("og:image:type", "image/png");
     updateMetaProperty("twitter:title", "BurnRate.ai Audit Results");
     updateMetaProperty("twitter:description", description);
+    updateMetaTag("twitter:card", "summary_large_image");
+    updateMetaTag("twitter:image", getOgImageUrl());
   }, [auditData]);
 
   const shareUrl = useMemo(

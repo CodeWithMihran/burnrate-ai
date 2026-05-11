@@ -24,4 +24,18 @@ export const getShareBaseUrl = () => {
   return getApiBaseUrl().replace(/\/api$/, "");
 };
 
+export const getOgImageUrl = () => {
+  if (typeof window !== "undefined") {
+    return new URL("/og-share-preview.png", window.location.origin).toString();
+  }
+
+  const configuredFrontendAppUrl = import.meta.env.VITE_FRONTEND_APP_URL;
+
+  if (configuredFrontendAppUrl) {
+    return `${configuredFrontendAppUrl.replace(/\/$/, "")}/og-share-preview.png`;
+  }
+
+  return "/og-share-preview.png";
+};
+
 export default api;

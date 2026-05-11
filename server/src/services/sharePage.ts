@@ -19,14 +19,18 @@ export const buildSharePageHtml = (input: {
   publicId: string;
   result: IAuditResult;
 }) => {
-  const frontendAppUrl = process.env.FRONTEND_APP_URL || process.env.APP_URL;
-  const canonicalShareUrl = `${process.env.APP_URL || "http://localhost:5000"}/share/${
-    input.publicId
-  }`;
-  const frontendShareUrl = frontendAppUrl
-    ? `${frontendAppUrl.replace(/\/$/, "")}/share/${input.publicId}`
-    : canonicalShareUrl;
-  const title = `BurnRate.ai Audit • Save ${formatCurrency(
+  const appUrl = (process.env.APP_URL || "http://localhost:5000").replace(
+    /\/$/,
+    ""
+  );
+  const frontendAppUrl = (process.env.FRONTEND_APP_URL || process.env.APP_URL || appUrl).replace(
+    /\/$/,
+    ""
+  );
+  const canonicalShareUrl = `${appUrl}/share/${input.publicId}`;
+  const frontendShareUrl = `${frontendAppUrl}/share/${input.publicId}`;
+  const ogImageUrl = `${frontendAppUrl}/og-share-preview.png`;
+  const title = `BurnRate.ai Audit - Save ${formatCurrency(
     input.result.totalAnnualSavings
   )}/year`;
   const description =
@@ -46,9 +50,14 @@ export const buildSharePageHtml = (input: {
     <meta property="og:title" content="${escapeHtml(title)}" />
     <meta property="og:description" content="${escapeHtml(description)}" />
     <meta property="og:url" content="${escapeHtml(canonicalShareUrl)}" />
+    <meta property="og:image" content="${escapeHtml(ogImageUrl)}" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escapeHtml(title)}" />
     <meta name="twitter:description" content="${escapeHtml(description)}" />
+    <meta name="twitter:image" content="${escapeHtml(ogImageUrl)}" />
     <meta http-equiv="refresh" content="0; url=${escapeHtml(frontendShareUrl)}" />
     <style>
       body { font-family: Arial, sans-serif; background: #0b0f19; color: white; display: grid; place-items: center; min-height: 100vh; margin: 0; padding: 24px; }
