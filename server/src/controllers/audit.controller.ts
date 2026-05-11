@@ -1,26 +1,19 @@
 import { Request, Response } from "express";
 import { nanoid } from "nanoid";
 import Audit from "../models/Audit";
+import { isDatabaseConnected } from "../config/db";
 import { runAuditEngine } from "../services/audit/auditEngine";
 import { buildAuditSummary } from "../services/auditSummary";
-import { auditInputSchema } from "../validators/audit.validator";
-import { isDatabaseConnected } from "../config/db";
 import {
   createMemoryAudit,
   deleteMemoryAuditById,
   getMemoryAuditById,
   getMemoryAuditByPublicId,
 } from "../services/memoryStore";
+import { auditInputSchema } from "../validators/audit.validator";
 
-/**
- * ----------------------------------
- * CREATE AUDIT
- * POST /api/audit
- * ----------------------------------
- */
 export const createAudit = async (req: Request, res: Response) => {
   try {
-    // 1. Validate input using Zod
     const parsed = auditInputSchema.safeParse(req.body);
 
     if (!parsed.success) {
@@ -33,7 +26,6 @@ export const createAudit = async (req: Request, res: Response) => {
 
     const { tools, teamSize, useCase } = parsed.data;
 
-    // 2. Run audit engine (core logic)
     const result = runAuditEngine({
       tools,
       teamSize,
@@ -49,10 +41,8 @@ export const createAudit = async (req: Request, res: Response) => {
       recommendations: result.recommendations,
     });
 
-    // 3. Generate publicId for shareable URL
     const publicId = nanoid(10);
 
-    // 4. Save audit
     const audit = isDatabaseConnected()
       ? await Audit.create({
           tools,
@@ -71,7 +61,6 @@ export const createAudit = async (req: Request, res: Response) => {
           isPublic: true,
         });
 
-    // 5. Return response
     return res.status(201).json({
       success: true,
       auditId: String(audit._id),
@@ -88,12 +77,6 @@ export const createAudit = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * ----------------------------------
- * GET AUDIT (PRIVATE)
- * GET /api/audit/:id
- * ----------------------------------
- */
 export const getAuditById = async (req: Request, res: Response) => {
   try {
     const id = String(req.params.id);
@@ -123,12 +106,6 @@ export const getAuditById = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * ----------------------------------
- * GET PUBLIC AUDIT (SHAREABLE)
- * GET /api/audit/public/:publicId
- * ----------------------------------
- */
 export const getPublicAudit = async (req: Request, res: Response) => {
   try {
     const publicId = String(req.params.publicId);
@@ -144,7 +121,6 @@ export const getPublicAudit = async (req: Request, res: Response) => {
       });
     }
 
-    // Remove sensitive data
     const publicData = {
       auditId: String(audit._id),
       publicId: audit.publicId,
@@ -169,11 +145,6 @@ export const getPublicAudit = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * ----------------------------------
- * DELETE AUDIT (OPTIONAL but useful)
- * ----------------------------------
- */
 export const deleteAudit = async (req: Request, res: Response) => {
   try {
     const id = String(req.params.id);

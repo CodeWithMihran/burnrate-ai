@@ -41,10 +41,6 @@ export const generateSummary = async (data: SummaryInput): Promise<string> => {
   throw new Error("Invalid AI response format");
 };
 
-/**
- * Prompt Builder
- * IMPORTANT: You will copy this to PROMPTS.md later
- */
 const buildPrompt = (data: SummaryInput): string => {
   return `
 You are an AI cost optimization expert.
@@ -61,7 +57,7 @@ Recommendations:
 ${data.recommendations
   .map(
     (rec: any) =>
-      `- ${rec.toolName}: ${rec.action} (${rec.savings} savings) — ${rec.reason}`
+      `- ${rec.toolName}: ${rec.action} (${rec.savings} savings) - ${rec.reason}`
   )
   .join("\n")}
 

@@ -7,15 +7,10 @@ import {
 } from "../services/memoryStore";
 import { buildAuditSummary } from "../services/auditSummary";
 
-/**
- * Generate AI Summary for an Audit
- * POST /api/summary/:auditId
- */
 export const generateAuditSummary = async (req: Request, res: Response) => {
   try {
     const auditId = String(req.params.auditId);
 
-    // 1. Fetch audit
     const audit = isDatabaseConnected()
       ? await Audit.findById(auditId)
       : getMemoryAuditById(auditId);
@@ -27,7 +22,6 @@ export const generateAuditSummary = async (req: Request, res: Response) => {
       });
     }
 
-    // 2. If summary already exists, return it (optional optimization)
     if (audit.result.summary) {
       return res.status(200).json({
         success: true,
@@ -36,7 +30,6 @@ export const generateAuditSummary = async (req: Request, res: Response) => {
       });
     }
 
-    // 3. Prepare data for AI
     const inputData = {
       tools: audit.tools,
       totalMonthlySavings: audit.result.totalMonthlySavings,
@@ -46,12 +39,8 @@ export const generateAuditSummary = async (req: Request, res: Response) => {
       teamSize: audit.teamSize,
     };
 
-    // 4. Call AI service
-    let summary: string;
+    const summary = await buildAuditSummary(inputData);
 
-    summary = await buildAuditSummary(inputData);
-
-    // 6. Save summary
     if (isDatabaseConnected() && "save" in audit) {
       audit.result.summary = summary;
       await audit.save();
@@ -59,7 +48,6 @@ export const generateAuditSummary = async (req: Request, res: Response) => {
       updateMemoryAuditSummary(auditId, summary);
     }
 
-    // 7. Return response
     return res.status(200).json({
       success: true,
       summary,
