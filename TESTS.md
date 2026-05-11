@@ -218,6 +218,8 @@ Key notes:
 
 The deployment is in a healthy range overall, especially for accessibility, best practices, and SEO. The main performance weakness is layout stability, with Lighthouse repeatedly identifying the footer region as a CLS culprit. There is also some avoidable main-thread and unused-JavaScript overhead on mobile.
 
+After the Lighthouse review, I tightened the footer layout so the column blocks reserve space more consistently and are less likely to jump as wrapping changes across breakpoints. I have not regenerated the Lighthouse PDFs after that adjustment yet, so the reported scores above should still be treated as the documented baseline for the submitted audit.
+
 One caveat from the PDF traces: both reports captured Chrome extension noise, including React DevTools-related extension activity. That means the reported performance score should be treated as directionally useful rather than perfectly clean-lab data.
 
 ## Known Production Notes

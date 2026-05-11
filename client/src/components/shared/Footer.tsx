@@ -2,8 +2,8 @@ const Footer = () => {
   return (
     <footer className="border-t border-white/10 bg-[#0a0a0a] pb-10 pt-20 text-white">
       <div className="container-custom">
-        <div className="grid gap-12 md:grid-cols-12 lg:gap-16">
-          <div className="md:col-span-5 lg:col-span-4">
+        <div className="grid auto-rows-fr gap-12 md:grid-cols-12 lg:gap-16">
+          <div className="flex h-full flex-col md:col-span-5 lg:col-span-4">
             <div className="mb-6 flex items-center gap-4">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-sm font-black italic text-white">
                 BR
@@ -18,7 +18,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <p className="mb-6 max-w-sm text-sm leading-relaxed text-gray-500">
+            <p className="mb-6 min-h-[108px] max-w-sm text-sm leading-relaxed text-gray-500">
               A founder-style AI spend audit experience that turns scattered
               subscriptions, seats, and usage into a cleaner decision path for
               teams trying to spend with more discipline.
@@ -40,7 +40,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="md:col-span-2 lg:col-span-2">
+          <div className="flex h-full flex-col md:col-span-2 lg:col-span-2">
             <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.2em] text-white">
               Platform
             </h3>
@@ -77,7 +77,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="md:col-span-2 lg:col-span-3">
+          <div className="flex h-full flex-col md:col-span-2 lg:col-span-3">
             <h3 className="mb-6 text-sm font-bold uppercase tracking-[0.2em] text-white">
               Audit Coverage
             </h3>
@@ -96,8 +96,8 @@ const Footer = () => {
             </ul>
           </div>
 
-          <div className="md:col-span-3 lg:col-span-3">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
+          <div className="flex h-full md:col-span-3 lg:col-span-3">
+            <div className="h-full w-full rounded-2xl border border-white/10 bg-white/5 p-6">
               <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.2em] text-white">
                 Built For
               </h3>
@@ -115,7 +115,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-[13px] md:flex-row">
+        <div className="mt-16 flex min-h-[44px] flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-[13px] md:flex-row">
           <p className="text-gray-600">
             &copy; {new Date().getFullYear()}{" "}
             <span className="font-medium text-gray-400">BurnRate.ai</span>. All

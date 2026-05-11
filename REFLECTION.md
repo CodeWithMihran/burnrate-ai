@@ -1,20 +1,20 @@
 # Reflection
 
-## The hardest problem I hit, and how I worked through it
+## Question 1. What was the hardest problem you hit, and how did you work through it?
 
-The hardest part of the project was that it kept changing category. At the beginning it looked like a typical full-stack build problem: define the models, wire the routes, build the pages, and connect the client to the server. But the deeper challenge showed up later, when I realized the assignment is not really grading "can you make a web app run?" It is grading whether the whole thing behaves like a believable product.
+The hardest part of the project was that it kept changing category. At the beginning it looked like a normal full-stack assignment: define the models, wire the routes, build the pages, and connect the client to the server. The deeper challenge only became obvious later, when I realized the real question was not "can this app run?" but "does this behave like a believable product?"
 
-That meant the real difficulty was not a single bug. It was the chain of smaller mismatches that made the product feel unreliable:
+The difficult part was not one dramatic bug. It was the chain of smaller mismatches that made the product feel unreliable:
 
 - frontend and backend response-shape mismatches
 - rough navigation and integration flow
-- backend package/runtime structure issues
+- backend package and runtime structure issues
 - deployment failures on Render
 - MongoDB Atlas access problems
-- frontend routing issues for shared URLs
+- frontend routing issues for public share URLs
 - environment-variable mistakes that quietly broke sharing
 
-I debugged all of this by forcing myself to shrink the problem repeatedly. Instead of asking "why is the stack broken?" I started asking:
+I worked through this by shrinking the problem repeatedly. Instead of asking "why is the whole stack broken?" I forced the project into layers:
 
 - Does the client build?
 - Does the server build?
@@ -22,16 +22,16 @@ I debugged all of this by forcing myself to shrink the problem repeatedly. Inste
 - Does the API respond locally?
 - Does the deployed API respond?
 - Does persistence work?
-- Does the public share route work?
-- Does the frontend shared route work after redirect?
+- Does the backend share route work?
+- Does the frontend shared-result route work after redirect?
 
-That changed everything. Once the system was split into verifiable layers, the project became much less overwhelming.
+That approach made the project much less overwhelming. Once each layer became testable on its own, I could stop guessing and start isolating the real failure point.
 
-## A decision I reversed, and why I reversed it
+## Question 2. What is one decision you reversed, and why?
 
-The most important decision I reversed was where to spend my attention. Early on I drifted toward frontend polish because visible UI progress feels satisfying and fast. But that was not actually the highest-leverage work.
+The biggest decision I reversed was where to spend my attention. Early in the week I naturally drifted toward frontend polish because visible UI progress feels satisfying and immediate. But that was not actually the highest-leverage work for this assignment.
 
-Mid-week, I recognized that the assignment values:
+As the brief became clearer, I realized it rewards:
 
 - defensible logic
 - product judgment
@@ -39,9 +39,9 @@ Mid-week, I recognized that the assignment values:
 - testing
 - consistency
 
-more than surface-level visual flourish alone.
+more than surface-level polish by itself.
 
-So I changed course. I moved the center of gravity toward:
+So I changed course and moved the center of gravity toward:
 
 - rule-based audit logic
 - backend validation
@@ -51,11 +51,11 @@ So I changed course. I moved the center of gravity toward:
 - tests
 - documentation
 
-That was the right reversal. The project improved more once I treated the result page, public share flow, and trust model as the core product, instead of treating the landing page as the main story.
+That reversal improved the project a lot. The product started feeling stronger once I treated the result page, public share flow, and trust model as the real core, instead of treating the landing page as the main story.
 
-## What I would build next if I had another week
+## Question 3. If you had another week, what would you build next?
 
-If I had a second week, I would focus on three things: accuracy, trust, and distribution.
+If I had another week, I would focus on accuracy, trust, and distribution.
 
 ### Accuracy
 
@@ -64,24 +64,24 @@ The current audit engine is strongest on flat seat-based plans. The next improve
 - OpenAI API spend
 - Anthropic API spend
 - custom enterprise plans
-- annual-vs-monthly procurement differences
+- annual-versus-monthly procurement differences
 
-Right now the app is conservative in those cases, which is better than pretending precision. But I would still want to make them more explicit, possibly by adding usage buckets or one more field about workload shape.
+Right now the app is deliberately conservative in those cases, which is better than pretending precision. With more time, I would add one more layer of usage-shape inputs so API-direct and enterprise recommendations could become more defensible without becoming noisy.
 
 ### Trust
 
 The next trust layer would be making every recommendation more inspectable. I would want each result to show:
 
 - the current pricing benchmark
-- the compared plan benchmark
-- the assumption used
+- the compared plan or procurement benchmark
+- the assumption that triggered the recommendation
 - the exact reason the recommendation fired
 
-That would turn the audit from "helpful result" into something closer to a mini decision memo.
+That would push the product closer to a mini finance memo instead of just a savings calculator.
 
 ### Distribution
 
-The product already has the beginnings of a sharing loop, but I would make it stronger by framing the output more comparatively. A founder is more likely to share:
+The product already has the beginning of a sharing loop, but I would make the output more comparative and benchmark-driven. A founder is more likely to share:
 
 - "we are overspending by 42%"
 
@@ -89,9 +89,9 @@ than:
 
 - "here is a calculator result"
 
-That benchmark-style framing would make the product more conversational and more naturally viral.
+That kind of framing would make the product easier to discuss internally and more naturally shareable externally.
 
-## How I used AI tools
+## Question 4. How did you use AI tools during the build?
 
 I used AI tools as accelerators, not as decision-makers.
 
@@ -112,14 +112,14 @@ Where I did not trust them was in the parts that affect product credibility:
 
 That is the main reason the audit engine is rule-based. It would have been easy to let the model improvise a "smart" audit, but that would have made the product feel less trustworthy, not more.
 
-One useful lesson from the week is that AI is best when paired with proof. Suggestions become useful only after they are checked against:
+One of the clearest lessons from the week is that AI becomes useful only when it is paired with proof. Suggestions mattered only after they were checked against:
 
 - actual routes
 - actual logs
 - actual deployment behavior
 - actual pricing sources
 
-## What I am proud of
+## Question 5. What are you most proud of, and what still feels incomplete?
 
 I am most proud that the project now feels like a real shipped product rather than a rough assignment scaffold.
 
@@ -132,18 +132,16 @@ It now has:
 - graceful fallback behavior
 - a clearer product voice
 
-I am also proud that the product became more honest as it improved. It would have been easy to overclaim savings, overuse AI, or fake certainty around enterprise/API cases. I think the current version is stronger because it is willing to stay conservative where it should.
+I am also proud that the product became more honest as it improved. It would have been easy to overclaim savings, overuse AI, or fake certainty around enterprise and API-heavy cases. I think the current version is stronger because it stays conservative where it should.
 
-## What still feels incomplete
-
-The project is in a good technical state, but the submission is not finished until the external validation work is done. The biggest remaining gaps are:
+What still feels incomplete is mostly external validation rather than core implementation. The biggest remaining gaps are:
 
 - real user interviews
-- final business-side docs polish
+- final business-side evidence and polish
 - optional email infrastructure
-- even tighter pricing proof for the trickiest cases
+- even tighter pricing proof for the trickiest edge cases
 
-That is actually a useful kind of unfinished. It means the remaining work is less about fixing core product failures and more about strengthening the evidence around the product.
+That is actually a useful kind of unfinished. It means the remaining work is less about fixing the foundation and more about strengthening the proof around the product.
 
 ## Self-rating
 
