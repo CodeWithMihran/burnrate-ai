@@ -1,8 +1,6 @@
 import { Request, Response } from "express";
-import Lead from "../models/Lead";
 import Audit from "../models/Audit";
-import { sendAuditEmail } from "../services/email.service";
-import { leadInputSchema } from "../validators/lead.validator";
+import Lead from "../models/Lead";
 import { isDatabaseConnected } from "../config/db";
 import {
   createMemoryLead,
@@ -10,16 +8,11 @@ import {
   getMemoryAuditById,
   markMemoryLeadAsEmailed,
 } from "../services/memoryStore";
+import { sendAuditEmail } from "../services/email.service";
+import { leadInputSchema } from "../validators/lead.validator";
 
-/**
- * ----------------------------------
- * CREATE LEAD
- * POST /api/lead
- * ----------------------------------
- */
 export const createLead = async (req: Request, res: Response) => {
   try {
-    // 1. Validate input
     const parsed = leadInputSchema.safeParse(req.body);
 
     if (!parsed.success) {
@@ -41,7 +34,6 @@ export const createLead = async (req: Request, res: Response) => {
       preferredContactWindow,
     } = parsed.data;
 
-    // 2. Fetch audit (DO NOT trust frontend savings)
     const audit = isDatabaseConnected()
       ? await Audit.findById(auditId)
       : getMemoryAuditById(auditId);
@@ -56,7 +48,6 @@ export const createLead = async (req: Request, res: Response) => {
     const monthlySavings = audit.result.totalMonthlySavings;
     const annualSavings = audit.result.totalAnnualSavings;
 
-    // 3. Check duplicate lead
     const existingLead = isDatabaseConnected()
       ? await Lead.findOne({ email, auditId })
       : findMemoryLead(email, auditId);
@@ -69,7 +60,6 @@ export const createLead = async (req: Request, res: Response) => {
       });
     }
 
-    // 4. Create lead
     const lead = isDatabaseConnected()
       ? await Lead.create({
           email,
@@ -102,7 +92,6 @@ export const createLead = async (req: Request, res: Response) => {
           userAgent: req.headers["user-agent"],
         });
 
-    // 5. Send confirmation email (non-blocking)
     try {
       await sendAuditEmail({
         to: email,
@@ -118,10 +107,8 @@ export const createLead = async (req: Request, res: Response) => {
       }
     } catch (emailError) {
       console.error("Email sending failed:", emailError);
-      // Don't fail request if email fails
     }
 
-    // 6. Response
     return res.status(201).json({
       success: true,
       message: "Lead captured successfully",
